@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math + English Practice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FDF9F0;
+      --surface: #FFFFFF;
+      --ink: #17233B;
+      --muted: #5C6B84;
+      --line: #ECE4D3;
+      --blue: #5B8DEE;
+      --blue-soft: #EAF1FE;
+      --pink: #F28BA8;
+      --pink-soft: #FDECEF;
+      --green: #5EC29E;
+      --green-soft: #E8F8F2;
+      --yellow: #F7C652;
+      --yellow-soft: #FFF7E0;
+      --purple: #8D7DF0;
+      --purple-soft: #EFEDFE;
+      --board: #233247;
+      --board-border: #3A4F6B;
+      --chalk: #FAF7F0;
+      --shadow: 0 12px 28px rgba(23, 35, 59, 0.07);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 8% 10%, rgba(247, 198, 82, 0.18), transparent 28%),
+        radial-gradient(circle at 92% 14%, rgba(91, 141, 238, 0.16), transparent 30%),
+        radial-gradient(circle at 85% 85%, rgba(94, 194, 158, 0.16), transparent 32%),
+        var(--bg);
+      color: var(--ink);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 24px 18px 70px;
+    }
+
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-pill {
+      background: linear-gradient(135deg, var(--yellow) 0%, var(--pink) 100%);
+      color: var(--ink);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 9px 16px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .nav-pill {
+      border: 2px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(23, 35, 59, 0.04);
+      transition: transform 0.14s ease, background 0.14s ease;
+    }
+
+    .nav-pill:hover { transform: translateY(-2px); }
+    .nav-pill.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+
+    .student-box {
+      background: var(--surface);
+      border: 2px solid var(--line);
+      border-left: 6px solid var(--blue);
+      border-radius: 18px;
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .student-box label {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    .student-input {
+      border: 2px solid var(--line);
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--ink);
+      min-width: 240px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 2px solid var(--line);
+      border-radius: 26px;
+      padding: 26px;
+      margin-bottom: 26px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card[data-m="1"] { border-top: 6px solid var(--blue); }
+    .card[data-m="2"] { border-top: 6px solid var(--green); }
+    .card[data-m="3"] { border-top: 6px solid var(--pink); }
+    .card[data-m="4"] { border-top: 6px solid var(--yellow); }
+    .card[data-m="5"] { border-top: 6px solid var(--purple); }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: var(--yellow-soft);
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin: 0 0 6px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.6rem;
+    }
+
+    .sub {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .step-lbl {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.15rem;
+      margin: 22px 0 12px;
+      color: var(--ink);
+    }
+
+    /* Mission 1 Step 1 */
+    .cols-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 680px) {
+      .cols-grid { grid-template-columns: 1fr; }
+    }
+
+    .col-panel {
+      background: #FCF9F2;
+      border: 2px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .col-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+      text-align: center;
+      padding: 6px;
+      border-radius: 10px;
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+    }
+
+    .col-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .item-btn {
+      min-height: 62px;
+      border: 2px solid var(--line);
+      background: var(--surface);
+      border-radius: 15px;
+      padding: 10px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+    }
+
+    .item-btn:hover { transform: translateY(-2px); }
+
+    .sign-glyph {
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .word-glyph {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .item-btn.selected {
+      border-color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .item-btn.matched {
+      border-color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .badge-link {
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+    }
+
+    /* Mission 1 Step 2 */
+    .sums-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 740px) {
+      .sums-grid { grid-template-columns: 1fr; }
+    }
+
+    .chalkboard {
+      background: var(--board);
+      border: 3px solid var(--board-border);
+      border-radius: 22px;
+      padding: 18px;
+      color: var(--chalk);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.04);
+    }
+
+    .sum-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .sum-expr {
+      font-family: 'Caveat', cursive;
+      font-size: 2.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .num-field {
+      width: 76px;
+      border: 2px dashed rgba(250, 247, 240, 0.55);
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 2px 8px;
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--yellow);
+      text-align: center;
+    }
+
+    .shift-key {
+      border: 2px solid var(--yellow);
+      background: rgba(247, 198, 82, 0.16);
+      color: var(--yellow);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 11px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .shift-key.on {
+      background: var(--yellow);
+      color: var(--ink);
+    }
+
+    .built-box {
+      min-height: 50px;
+      border: 1.5px dashed rgba(250, 247, 240, 0.35);
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 9px 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .hint-muted {
+      color: rgba(250, 247, 240, 0.52);
+      font-size: 0.88rem;
+      font-style: italic;
+    }
+
+    .picked-chip {
+      border: none;
+      background: var(--green);
+      color: var(--ink);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 5px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .pool-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .word-chip {
+      border: none;
+      background: var(--yellow-soft);
+      color: var(--ink);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+
+    .word-chip:hover { transform: translateY(-1px); }
+
+    .clear-link {
+      margin-top: 10px;
+      background: none;
+      border: none;
+      color: rgba(250, 247, 240, 0.7);
+      font-size: 0.8rem;
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    /* Mission 2: Apples */
+    .apple-arena {
+      background: linear-gradient(180deg, #FFFDF7 0%, #F8F3E6 100%);
+      border: 2px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+    }
+
+    .arena-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .goal-badge {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 7px 16px;
+      border-radius: 999px;
+    }
+
+    .goal-more { background: var(--blue-soft); color: #214FA8; }
+    .goal-less { background: var(--pink-soft); color: #A62F52; }
+
+    .apple-columns {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 680px) {
+      .apple-columns { grid-template-columns: 1fr; }
+      .mid-or { text-align: center; }
+    }
+
+    .apple-card-btn {
+      border: 3px solid var(--line);
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 18px;
+      min-height: 165px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+    }
+
+    .apple-card-btn:hover {
+      transform: translateY(-3px);
+      border-color: var(--blue);
+    }
+
+    .apple-card-btn.chosen {
+      border-color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .apple-art-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .apple-caption {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    .mid-or {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.25rem;
+      color: var(--muted);
+    }
+
+    .progress-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .p-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #DCD2BC;
+    }
+
+    .p-dot.filled { background: var(--green); }
+    .p-dot.active { background: var(--blue); transform: scale(1.2); }
+
+    /* Mission 3: Drag & Drop Letters */
+    .letters-tray {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 16px;
+      min-height: 82px;
+      background: #FCF9F2;
+      border: 2px solid var(--line);
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .drag-letter {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid rgba(23, 35, 59, 0.14);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      cursor: grab;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(23, 35, 59, 0.12);
+      transition: transform 0.12s ease;
+    }
+
+    .drag-letter:hover { transform: scale(1.07); }
+    .drag-letter:active { cursor: grabbing; }
+    .drag-letter.picked-letter { outline: 4px solid var(--ink); }
+
+    .zones-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .zones-grid { grid-template-columns: 1fr; }
+    }
+
+    .drop-zone {
+      border: 2.5px dashed var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      min-height: 165px;
+      transition: transform 0.12s ease, border-color 0.12s ease;
+    }
+
+    .drop-zone.v-zone {
+      background: var(--pink-soft);
+      border-color: #E79AB1;
+    }
+
+    .drop-zone.c-zone {
+      background: var(--blue-soft);
+      border-color: #8EB2F5;
+    }
+
+    .drop-zone.drag-over {
+      transform: scale(1.01);
+      border-style: solid;
+      border-color: var(--ink);
+    }
+
+    .zone-head {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.15rem;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .zone-body {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Mission 4: Sentence Drop Zone + Word Bank */
+    .grammar-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .g-tag {
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+
+    .g-the { background: var(--yellow-soft); color: #875F00; }
+    .g-noun { background: var(--blue-soft); color: #224FA6; }
+    .g-verb { background: var(--pink-soft); color: #A62F52; }
+    .g-adj { background: var(--green-soft); color: #1E7959; }
+
+    .sentence-drop-area {
+      min-height: 82px;
+      background: #FCF9F2;
+      border: 2.5px dashed #D7CBB2;
+      border-radius: 20px;
+      padding: 14px 16px;
+      margin: 12px 0 14px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .sentence-drop-area.drag-over {
+      border-color: var(--blue);
+      background: var(--blue-soft);
+      border-style: solid;
+    }
+
+    .drop-placeholder {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .words-bank-area {
+      min-height: 74px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .sent-card {
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      padding: 12px 20px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 0 5px 14px rgba(23, 35, 59, 0.06);
+      transition: transform 0.12s ease;
+    }
+
+    .sent-card:hover { transform: translateY(-2px); }
+
+    .step-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-pill {
+      border: 2px solid var(--line);
+      background: #FCF9F2;
+      color: var(--ink);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      padding: 9px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    /* Mission 5: 7-Step Listening Carousel */
+    .listen-card {
+      background: #FCF9F2;
+      border: 2px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+    }
+
+    .listen-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 2px dashed var(--line);
+    }
+
+    .sound-btn {
+      border: 2px solid var(--yellow);
+      background: var(--yellow-soft);
+      color: var(--ink);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 1.02rem;
+      padding: 10px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(247, 198, 82, 0.25);
+    }
+
+    .sound-btn:hover { transform: translateY(-1px); }
+
+    .q-block {
+      background: var(--surface);
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .q-label {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.08rem;
+      margin-bottom: 10px;
+      color: var(--ink);
+    }
+
+    .choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .end-btn, .num-pick-btn {
+      border: 2px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.18rem;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 14px;
+      cursor: pointer;
+      min-width: 110px;
+      transition: transform 0.12s ease, background 0.12s ease;
+    }
+
+    .end-btn:hover, .num-pick-btn:hover { transform: translateY(-1px); }
+
+    .end-btn.chosen {
+      background: var(--purple);
+      color: #fff;
+      border-color: var(--purple);
+    }
+
+    .num-pick-btn.chosen {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    .listen-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .listen-dots {
+      display: flex;
+      gap: 7px;
+    }
+
+    /* Send section */
+    .send-card {
+      background: var(--surface);
+      border: 2px solid var(--line);
+      border-top: 6px solid var(--green);
+      border-radius: 26px;
+      padding: 26px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .send-main-btn {
+      background: linear-gradient(135deg, var(--green) 0%, #44B28A 100%);
+      color: var(--ink);
+      border: none;
+      border-radius: 16px;
+      padding: 14px 30px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(94, 194, 158, 0.35);
+    }
+
+    .send-msg {
+      margin-top: 14px;
+      font-weight: 700;
+      min-height: 22px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo-wrap">
+        <div class="logo-pill">MATH + ENGLISH</div>
+        <span style="font-weight:700;color:var(--muted);">Practice Playground</span>
+      </div>
+      <div class="nav-pills">
+        <button type="button" class="nav-pill active" data-goto="1">1. Math</button>
+        <button type="button" class="nav-pill" data-goto="2">2. Apples</button>
+        <button type="button" class="nav-pill" data-goto="3">3. Letters</button>
+        <button type="button" class="nav-pill" data-goto="4">4. Sentence</button>
+        <button type="button" class="nav-pill" data-goto="5">5. Listen</button>
+      </div>
+    </div>
+
+    <div class="student-box">
+      <label for="studentNameInput">Student name:</label>
+      <input id="studentNameInput" class="student-input" type="text" placeholder="Enter student name..." />
+    </div>
+
+    <!-- MISSION 1 -->
+    <section class="card" data-m="1">
+      <span class="tag">Mission 1 of 5</span>
+      <h2>Math Signs &amp; Sums</h2>
+      <p class="sub">Match signs with words, then solve the examples on the chalkboards.</p>
+
+      <div class="step-lbl">Step 1: Tap a sign in column 1, then tap its word in column 2!</div>
+      <div class="cols-grid">
+        <div class="col-panel">
+          <div class="col-title">Signs</div>
+          <div class="col-list" id="signsCol"></div>
+        </div>
+        <div class="col-panel">
+          <div class="col-title">Words</div>
+          <div class="col-list" id="wordsCol"></div>
+        </div>
+      </div>
+
+      <div class="step-lbl">Step 2: Write the number AND build the full sentence.</div>
+      <div class="sums-grid" id="sumsGrid"></div>
+    </section>
+
+    <!-- MISSION 2 -->
+    <section class="card" data-m="2">
+      <span class="tag">Mission 2 of 5</span>
+      <h2>More or Less? Apples Game</h2>
+      <p class="sub">Choose the group that matches MORE or LESS. Tasks go one after another.</p>
+
+      <div class="apple-arena">
+        <div class="arena-top">
+          <strong id="appleTaskTitle">Task 1 of 5</strong>
+          <span id="appleGoalBadge" class="goal-badge goal-more">MORE</span>
+        </div>
+
+        <div class="apple-columns">
+          <button type="button" class="apple-card-btn" id="appleLeftBtn">
+            <div class="apple-art-row" id="appleLeftArt"></div>
+            <div class="apple-caption" id="appleLeftText"></div>
+          </button>
+
+          <div class="mid-or">VS</div>
+
+          <button type="button" class="apple-card-btn" id="appleRightBtn">
+            <div class="apple-art-row" id="appleRightArt"></div>
+            <div class="apple-caption" id="appleRightText"></div>
+          </button>
+        </div>
+
+        <div class="progress-row" id="appleDots"></div>
+      </div>
+    </section>
+
+    <!-- MISSION 3 -->
+    <section class="card" data-m="3">
+      <span class="tag">Mission 3 of 5</span>
+      <h2>Vowels &amp; Consonants Sorting</h2>
+      <p class="sub">Drag each letter into VOWELS or CONSONANTS (or tap a letter and tap a basket).</p>
+
+      <div class="letters-tray" id="lettersTray"></div>
+
+      <div class="zones-grid">
+        <div class="drop-zone v-zone" id="vowelsZone" data-zone="vowels">
+          <div class="zone-head">
+            <span>VOWELS</span>
+            <span id="vowelsCounter">0</span>
+          </div>
+          <div class="zone-body" id="vowelsBody"></div>
+        </div>
+
+        <div class="drop-zone c-zone" id="consonantsZone" data-zone="consonants">
+          <div class="zone-head">
+            <span>CONSONANTS</span>
+            <span id="consonantsCounter">0</span>
+          </div>
+          <div class="zone-body" id="consonantsBody"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISSION 4 -->
+    <section class="card" data-m="4">
+      <span class="tag">Mission 4 of 5</span>
+      <h2>Make a Sentence</h2>
+      <p class="sub">Tap or drag words into the sentence box above: THE + NOUN + VERB + ADJECTIVE.</p>
+
+      <div class="grammar-tags">
+        <span class="g-tag g-the">THE</span>
+        <span class="g-tag g-noun">NOUN</span>
+        <span class="g-tag g-verb">VERB</span>
+        <span class="g-tag g-adj">ADJECTIVE</span>
+      </div>
+
+      <div id="sentCounter" style="font-weight:800;color:var(--muted);">Sentence 1 of 5</div>
+
+      <div class="sentence-drop-area" id="sentenceDropArea">
+        <span class="drop-placeholder">Tap or drag words here to build the sentence...</span>
+      </div>
+
+      <div class="words-bank-area" id="wordsBankArea"></div>
+
+      <div class="step-controls">
+        <button type="button" class="btn-pill" id="prevSentBtn">← Previous</button>
+        <button type="button" class="btn-pill" id="clearSentBtn">Clear sentence</button>
+        <button type="button" class="btn-pill" id="nextSentBtn">Next →</button>
+      </div>
+    </section>
+
+    <!-- MISSION 5 -->
+    <section class="card" data-m="5">
+      <span class="tag">Mission 5 of 5</span>
+      <h2>-TEEN or -TY Listening Challenge</h2>
+      <p class="sub">Listen to each recording and answer both questions below it.</p>
+
+      <div class="listen-card">
+        <div class="listen-top">
+          <strong id="listenStepTitle" style="font-family:'Fredoka',sans-serif;font-size:1.15rem;">Recording 1 of 7</strong>
+          <button type="button" class="sound-btn" id="playRecordBtn">🔊 Listen to number</button>
+        </div>
+
+        <div class="q-block">
+          <div class="q-label">1. Does it end in -TEEN or -TY?</div>
+          <div class="choice-row" id="endingChoiceRow">
+            <button type="button" class="end-btn" data-end="-TEEN">-TEEN</button>
+            <button type="button" class="end-btn" data-end="-TY">-TY</button>
+          </div>
+        </div>
+
+        <div class="q-block" style="margin-bottom:0;">
+          <div class="q-label">2. Choose the exact number you heard:</div>
+          <div class="choice-row" id="numberChoiceRow"></div>
+        </div>
+
+        <div class="listen-nav">
+          <button type="button" class="btn-pill" id="prevListenBtn">← Previous</button>
+          <div class="listen-dots" id="listenDots"></div>
+          <button type="button" class="btn-pill" id="nextListenBtn">Next →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEND -->
+    <div class="send-card">
+      <h2 style="margin-bottom:8px;">Ready to send answers?</h2>
+      <p class="sub" style="margin-bottom:16px;">All exercises will be sent to your teacher in Telegram.</p>
+      <button type="button" class="send-main-btn" id="sendBtn">Надіслати вчителю</button>
+      <div class="send-msg" id="sendMsg"></div>
+    </div>
+  </div>
+
+  <script>
+    const BOT_TOKEN = "9000524592:AAFGz0I36Xc4XS2Y4qyNMfQzaxaWZMkLxGU";
+    const CHAT_ID = "749833850";
+
+    function sayNumberOrWord(val) {
+      if (!("speechSynthesis" in window)) return;
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(String(val));
+      u.lang = "en-US";
+      u.rate = 0.88;
+      window.speechSynthesis.speak(u);
+    }
+
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // Smooth section navigation
+    document.querySelectorAll(".nav-pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".nav-pill").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const sec = document.querySelector(`.card[data-m="${btn.dataset.goto}"]`);
+        if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    // ================= MISSION 1: STEP 1 =================
+    const signsList = [
+      { key: "plus", sym: "+" },
+      { key: "minus", sym: "−" },
+      { key: "equals", sym: "=" }
+    ];
+    const wordsList = [
+      { key: "minus", txt: "MINUS" },
+      { key: "equals", txt: "EQUALS" },
+      { key: "plus", txt: "PLUS" }
+    ];
+    let activeSignKey = null;
+    const signWordMap = {};
+
+    function renderSignsAndWords() {
+      const sCol = document.getElementById("signsCol");
+      const wCol = document.getElementById("wordsCol");
+      sCol.innerHTML = "";
+      wCol.innerHTML = "";
+
+      signsList.forEach((s) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "item-btn";
+        if (activeSignKey === s.key) btn.classList.add("selected");
+        if (signWordMap[s.key]) btn.classList.add("matched");
+
+        const linkedWord = signWordMap[s.key]
+          ? wordsList.find((w) => w.key === signWordMap[s.key])?.txt
+          : "";
+
+        btn.innerHTML = `<span class="sign-glyph">${s.sym}</span>${linkedWord ? `<span class="badge-link">${linkedWord}</span>` : ""}`;
+        btn.addEventListener("click", () => {
+          activeSignKey = activeSignKey === s.key ? null : s.key;
+          renderSignsAndWords();
+        });
+        sCol.appendChild(btn);
+      });
+
+      wordsList.forEach((w) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "item-btn";
+        const linkedSignKey = Object.keys(signWordMap).find((k) => signWordMap[k] === w.key);
+        if (linkedSignKey) btn.classList.add("matched");
+
+        const linkedSym = linkedSignKey
+          ? signsList.find((s) => s.key === linkedSignKey)?.sym
+          : "";
+
+        btn.innerHTML = `<span class="word-glyph">${w.txt}</span>${linkedSym ? `<span class="badge-link">${linkedSym}</span>` : ""}`;
+        btn.addEventListener("click", () => {
+          if (!activeSignKey) return;
+          Object.keys(signWordMap).forEach((k) => {
+            if (signWordMap[k] === w.key) delete signWordMap[k];
+          });
+          signWordMap[activeSignKey] = w.key;
+          activeSignKey = null;
+          renderSignsAndWords();
+        });
+        wCol.appendChild(btn);
+      });
+    }
+    renderSignsAndWords();
+
+    // ================= MISSION 1: STEP 2 =================
+    const mathTasks = [
+      { id: "m1", eq: "2 + 1 =", bank: shuffle(["two", "plus", "one", "equals", "three", "minus", "four"]) },
+      { id: "m2", eq: "5 + 4 =", bank: shuffle(["five", "plus", "four", "equals", "nine", "minus", "seven"]) },
+      { id: "m3", eq: "5 − 2 =", bank: shuffle(["five", "minus", "two", "equals", "three", "plus", "six"]) },
+      { id: "m4", eq: "6 − 5 =", bank: shuffle(["six", "minus", "five", "equals", "one", "plus", "two"]) }
+    ];
+
+    const mathState = {};
+    mathTasks.forEach((t) => {
+      mathState[t.id] = { num: "", words: [], shift: false };
+    });
+
+    function renderMathTasks() {
+      const grid = document.getElementById("sumsGrid");
+      grid.innerHTML = "";
+
+      mathTasks.forEach((t) => {
+        const st = mathState[t.id];
+        const board = document.createElement("div");
+        board.className = "chalkboard";
+
+        const top = document.createElement("div");
+        top.className = "sum-row";
+
+        const exprWrap = document.createElement("div");
+        exprWrap.className = "sum-expr";
+        exprWrap.innerHTML = `<span>${t.eq}</span>`;
+
+        const numInp = document.createElement("input");
+        numInp.type = "text";
+        numInp.inputMode = "numeric";
+        numInp.className = "num-field";
+        numInp.placeholder = "?";
+        numInp.value = st.num;
+        numInp.addEventListener("input", (e) => {
+          st.num = e.target.value.trim();
+        });
+        exprWrap.appendChild(numInp);
+
+        const shiftBtn = document.createElement("button");
+        shiftBtn.type = "button";
+        shiftBtn.className = "shift-key" + (st.shift ? " on" : "");
+        shiftBtn.textContent = "SHIFT";
+        shiftBtn.addEventListener("click", () => {
+          st.shift = !st.shift;
+          renderMathTasks();
+        });
+
+        top.appendChild(exprWrap);
+        top.appendChild(shiftBtn);
+
+        const built = document.createElement("div");
+        built.className = "built-box";
+        if (st.words.length === 0) {
+          built.innerHTML = `<span class="hint-muted">Tap scrambled words below to form the sentence...</span>`;
+        } else {
+          st.words.forEach((w, idx) => {
+            const chip = document.createElement("button");
+            chip.type = "button";
+            chip.className = "picked-chip";
+            chip.textContent = w;
+            chip.addEventListener("click", () => {
+              st.words.splice(idx, 1);
+              renderMathTasks();
+            });
+            built.appendChild(chip);
+          });
+        }
+
+        const pool = document.createElement("div");
+        pool.className = "pool-chips";
+        t.bank.forEach((w) => {
+          const chip = document.createElement("button");
+          chip.type = "button";
+          chip.className = "word-chip";
+          const out = st.shift ? w.charAt(0).toUpperCase() + w.slice(1) : w;
+          chip.textContent = out;
+          chip.addEventListener("click", () => {
+            st.words.push(out);
+            st.shift = false;
+            renderMathTasks();
+          });
+          pool.appendChild(chip);
+        });
+
+        const clearBtn = document.createElement("button");
+        clearBtn.type = "button";
+        clearBtn.className = "clear-link";
+        clearBtn.textContent = "Clear words";
+        clearBtn.addEventListener("click", () => {
+          st.words = [];
+          st.shift = false;
+          renderMathTasks();
+        });
+
+        board.appendChild(top);
+        board.appendChild(built);
+        board.appendChild(pool);
+        board.appendChild(clearBtn);
+        grid.appendChild(board);
+      });
+    }
+    renderMathTasks();
+
+    // ================= MISSION 2: APPLES =================
+    const appleSequence = [
+      { mode: "MORE", left: 5, right: 2 },
+      { mode: "LESS", left: 6, right: 2 },
+      { mode: "MORE", left: 1, right: 4 },
+      { mode: "LESS", left: 4, right: 1 },
+      { mode: "MORE", left: 3, right: 6 }
+    ];
+    let appleStep = 0;
+    const appleAnswers = new Array(appleSequence.length).fill(null);
+
+    function renderAppleSVG(count, color) {
+      let html = "";
+      for (let i = 0; i < count; i++) {
+        html += `<svg width="34" height="36" viewBox="0 0 36 38" aria-hidden="true">
+          <path d="M18 8 C18 4, 23 2, 26 4 C23 7, 20 8, 18 8 Z" fill="#5EC29E"/>
+          <path d="M18 8 L19 3" stroke="#5C3A21" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M18 10 C11 8, 5 13, 6 22 C7 30, 13 35, 18 33 C23 35, 29 30, 30 22 C31 13, 25 8, 18 10 Z" fill="${color}"/>
+        </svg>`;
+      }
+      return html;
+    }
+
+    function renderAppleStage() {
+      const cur = appleSequence[appleStep];
+      document.getElementById("appleTaskTitle").textContent = `Task ${appleStep + 1} of ${appleSequence.length}`;
+      const badge = document.getElementById("appleGoalBadge");
+      badge.textContent = cur.mode;
+      badge.className = "goal-badge " + (cur.mode === "MORE" ? "goal-more" : "goal-less");
+
+      document.getElementById("appleLeftArt").innerHTML = renderAppleSVG(cur.left, "#EE5A6F");
+      document.getElementById("appleRightArt").innerHTML = renderAppleSVG(cur.right, "#68C368");
+      document.getElementById("appleLeftText").textContent = `${cur.left} apples`;
+      document.getElementById("appleRightText").textContent = `${cur.right} apples`;
+
+      document.getElementById("appleLeftBtn").classList.toggle("chosen", appleAnswers[appleStep] === "left");
+      document.getElementById("appleRightBtn").classList.toggle("chosen", appleAnswers[appleStep] === "right");
+
+      const dots = document.getElementById("appleDots");
+      dots.innerHTML = "";
+      appleSequence.forEach((_, i) => {
+        const dot = document.createElement("span");
+        dot.className = "p-dot";
+        if (appleAnswers[i]) dot.classList.add("filled");
+        if (i === appleStep) dot.classList.add("active");
+        dots.appendChild(dot);
+      });
+    }
+
+    function chooseApple(side) {
+      appleAnswers[appleStep] = side;
+      renderAppleStage();
+      if (appleStep < appleSequence.length - 1) {
+        setTimeout(() => {
+          appleStep++;
+          renderAppleStage();
+        }, 280);
+      }
+    }
+
+    document.getElementById("appleLeftBtn").addEventListener("click", () => chooseApple("left"));
+    document.getElementById("appleRightBtn").addEventListener("click", () => chooseApple("right"));
+    renderAppleStage();
+
+    // ================= MISSION 3: DRAG & DROP LETTERS (RANDOM COLORS WITHOUT HINTS) =================
+    const bubblePalette = ["#5B8DEE", "#F28BA8", "#5EC29E", "#E5A93B", "#8D7DF0", "#EE7B5A"];
+    const rawLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "W", "Z"];
+    const lettersCatalog = shuffle(rawLetters).map((ch, idx) => ({
+      ch,
+      bg: bubblePalette[(idx * 3 + Math.floor(Math.random() * bubblePalette.length)) % bubblePalette.length]
+    }));
+
+    const letterLoc = {};
+    lettersCatalog.forEach((l) => { letterLoc[l.ch] = "tray"; });
+    let draggedLetter = null;
+    let selectedLetterTap = null;
+
+    function renderLettersBoard() {
+      const tray = document.getElementById("lettersTray");
+      const vBody = document.getElementById("vowelsBody");
+      const cBody = document.getElementById("consonantsBody");
+      tray.innerHTML = "";
+      vBody.innerHTML = "";
+      cBody.innerHTML = "";
+
+      let vNum = 0;
+      let cNum = 0;
+
+      lettersCatalog.forEach((item) => {
+        const el = document.createElement("div");
+        el.className = "drag-letter";
+        el.draggable = true;
+        el.style.background = item.bg;
+        el.textContent = item.ch;
+        if (selectedLetterTap === item.ch) el.classList.add("picked-letter");
+
+        el.addEventListener("dragstart", (e) => {
+          draggedLetter = item.ch;
+          e.dataTransfer.setData("text/plain", item.ch);
+        });
+
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (letterLoc[item.ch] !== "tray") {
+            letterLoc[item.ch] = "tray";
+            selectedLetterTap = null;
+          } else {
+            selectedLetterTap = selectedLetterTap === item.ch ? null : item.ch;
+          }
+          renderLettersBoard();
+        });
+
+        const where = letterLoc[item.ch];
+        if (where === "tray") tray.appendChild(el);
+        else if (where === "vowels") {
+          vBody.appendChild(el);
+          vNum++;
+        } else {
+          cBody.appendChild(el);
+          cNum++;
+        }
+      });
+
+      document.getElementById("vowelsCounter").textContent = vNum;
+      document.getElementById("consonantsCounter").textContent = cNum;
+    }
+
+    ["vowelsZone", "consonantsZone"].forEach((zoneId) => {
+      const zoneEl = document.getElementById(zoneId);
+      const targetKey = zoneEl.dataset.zone;
+
+      zoneEl.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        zoneEl.classList.add("drag-over");
+      });
+
+      zoneEl.addEventListener("dragleave", () => {
+        zoneEl.classList.remove("drag-over");
+      });
+
+      zoneEl.addEventListener("drop", (e) => {
+        e.preventDefault();
+        zoneEl.classList.remove("drag-over");
+        const ch = e.dataTransfer.getData("text/plain") || draggedLetter;
+        if (ch && letterLoc[ch] !== undefined) {
+          letterLoc[ch] = targetKey;
+          draggedLetter = null;
+          selectedLetterTap = null;
+          renderLettersBoard();
+        }
+      });
+
+      zoneEl.addEventListener("click", () => {
+        if (!selectedLetterTap) return;
+        letterLoc[selectedLetterTap] = targetKey;
+        selectedLetterTap = null;
+        renderLettersBoard();
+      });
+    });
+
+    renderLettersBoard();
+
+    // ================= MISSION 4: TAP OR DRAG INTO SENTENCE BOX =================
+    const sentenceBank = [
+      ["The", "cat", "is", "big."],
+      ["The", "dog", "is", "small."],
+      ["The", "ball", "is", "red."],
+      ["The", "bird", "is", "happy."],
+      ["The", "cat", "is", "black."]
+    ];
+    const cardColors = ["var(--yellow-soft)", "var(--blue-soft)", "var(--pink-soft)", "var(--green-soft)"];
+    const cardBorders = ["#E5B63E", "#5B8DEE", "#F28BA8", "#5EC29E"];
+
+    const sentStates = sentenceBank.map((words) => {
+      const items = shuffle(words.map((w, idx) => ({
+        id: idx,
+        text: w,
+        bg: cardColors[idx % cardColors.length],
+        border: cardBorders[idx % cardBorders.length]
+      })));
+      return {
+        bank: items,
+        chosen: []
+      };
+    });
+
+    let sentIdx = 0;
+    let draggedWordObj = null;
+
+    function moveWordToSentence(wordId) {
+      const st = sentStates[sentIdx];
+      const idx = st.bank.findIndex((item) => item.id === wordId);
+      if (idx === -1) return;
+      const [item] = st.bank.splice(idx, 1);
+      st.chosen.push(item);
+      renderSentenceStage();
+    }
+
+    function moveWordBackToBank(wordId) {
+      const st = sentStates[sentIdx];
+      const idx = st.chosen.findIndex((item) => item.id === wordId);
+      if (idx === -1) return;
+      const [item] = st.chosen.splice(idx, 1);
+      st.bank.push(item);
+      renderSentenceStage();
+    }
+
+    function renderSentenceStage() {
+      document.getElementById("sentCounter").textContent = `Sentence ${sentIdx + 1} of ${sentenceBank.length}`;
+      const dropArea = document.getElementById("sentenceDropArea");
+      const bankArea = document.getElementById("wordsBankArea");
+      dropArea.innerHTML = "";
+      bankArea.innerHTML = "";
+
+      const st = sentStates[sentIdx];
+
+      if (st.chosen.length === 0) {
+        dropArea.innerHTML = `<span class="drop-placeholder">Tap or drag words here to build the sentence...</span>`;
+      } else {
+        st.chosen.forEach((item) => {
+          const card = document.createElement("div");
+          card.className = "sent-card";
+          card.style.background = item.bg;
+          card.style.borderColor = item.border;
+          card.textContent = item.text;
+          card.title = "Tap to return word";
+          card.addEventListener("click", () => moveWordBackToBank(item.id));
+          dropArea.appendChild(card);
+        });
+      }
+
+      st.bank.forEach((item) => {
+        const card = document.createElement("div");
+        card.className = "sent-card";
+        card.draggable = true;
+        card.style.background = item.bg;
+        card.style.borderColor = item.border;
+        card.textContent = item.text;
+
+        card.addEventListener("dragstart", (e) => {
+          draggedWordObj = item;
+          e.dataTransfer.setData("text/plain", String(item.id));
+        });
+
+        card.addEventListener("click", () => moveWordToSentence(item.id));
+        bankArea.appendChild(card);
+      });
+    }
+
+    const dropAreaEl = document.getElementById("sentenceDropArea");
+    dropAreaEl.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropAreaEl.classList.add("drag-over");
+    });
+    dropAreaEl.addEventListener("dragleave", () => {
+      dropAreaEl.classList.remove("drag-over");
+    });
+    dropAreaEl.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropAreaEl.classList.remove("drag-over");
+      const rawId = e.dataTransfer.getData("text/plain");
+      const id = rawId !== "" ? Number(rawId) : draggedWordObj?.id;
+      if (id !== undefined && !Number.isNaN(id)) {
+        moveWordToSentence(id);
+        draggedWordObj = null;
+      }
+    });
+
+    document.getElementById("clearSentBtn").addEventListener("click", () => {
+      const st = sentStates[sentIdx];
+      st.bank = st.bank.concat(st.chosen);
+      st.chosen = [];
+      renderSentenceStage();
+    });
+
+    document.getElementById("prevSentBtn").addEventListener("click", () => {
+      if (sentIdx > 0) { sentIdx--; renderSentenceStage(); }
+    });
+    document.getElementById("nextSentBtn").addEventListener("click", () => {
+      if (sentIdx < sentenceBank.length - 1) { sentIdx++; renderSentenceStage(); }
+    });
+    renderSentenceStage();
+
+    // ================= MISSION 5: 7 RECORDINGS WITH 2 QUESTIONS EACH =================
+    const listeningRecords = [
+      { target: 13, options: [13, 30] },
+      { target: 40, options: [14, 40] },
+      { target: 15, options: [15, 50] },
+      { target: 60, options: [16, 60] },
+      { target: 17, options: [17, 70] },
+      { target: 80, options: [18, 80] },
+      { target: 19, options: [19, 90] }
+    ];
+
+    const listenAnswers = listeningRecords.map(() => ({
+      ending: null,
+      number: null
+    }));
+    let listenIdx = 0;
+
+    function renderListenStep() {
+      const rec = listeningRecords[listenIdx];
+      const ans = listenAnswers[listenIdx];
+
+      document.getElementById("listenStepTitle").textContent =
+        `Recording ${listenIdx + 1} of ${listeningRecords.length}`;
+
+      document.querySelectorAll("#endingChoiceRow .end-btn").forEach((btn) => {
+        btn.classList.toggle("chosen", ans.ending === btn.dataset.end);
+      });
+
+      const numRow = document.getElementById("numberChoiceRow");
+      numRow.innerHTML = "";
+      rec.options.forEach((numVal) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "num-pick-btn" + (ans.number === numVal ? " chosen" : "");
+        btn.textContent = numVal;
+        btn.addEventListener("click", () => {
+          ans.number = numVal;
+          renderListenStep();
+        });
+        numRow.appendChild(btn);
+      });
+
+      const dots = document.getElementById("listenDots");
+      dots.innerHTML = "";
+      listeningRecords.forEach((_, i) => {
+        const d = document.createElement("span");
+        d.className = "p-dot";
+        if (listenAnswers[i].ending && listenAnswers[i].number !== null) d.classList.add("filled");
+        if (i === listenIdx) d.classList.add("active");
+        dots.appendChild(d);
+      });
+    }
+
+    document.getElementById("playRecordBtn").addEventListener("click", () => {
+      sayNumberOrWord(listeningRecords[listenIdx].target);
+    });
+
+    document.querySelectorAll("#endingChoiceRow .end-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        listenAnswers[listenIdx].ending = btn.dataset.end;
+        renderListenStep();
+      });
+    });
+
+    document.getElementById("prevListenBtn").addEventListener("click", () => {
+      if (listenIdx > 0) {
+        listenIdx--;
+        renderListenStep();
+      }
+    });
+
+    document.getElementById("nextListenBtn").addEventListener("click", () => {
+      if (listenIdx < listeningRecords.length - 1) {
+        listenIdx++;
+        renderListenStep();
+      }
+    });
+
+    renderListenStep();
+
+    // ================= SEND TO TELEGRAM =================
+    document.getElementById("sendBtn").addEventListener("click", async () => {
+      const msgEl = document.getElementById("sendMsg");
+      msgEl.style.color = "#17233B";
+      msgEl.textContent = "Надсилаємо відповіді...";
+
+      const name = document.getElementById("studentNameInput").value.trim() || "Учень";
+
+      const signPairs = Object.entries(signWordMap)
+        .map(([k, v]) => `${k.toUpperCase()} -> ${v.toUpperCase()}`)
+        .join(", ") || "—";
+
+      const mathSummary = mathTasks
+        .map((t) => {
+          const s = mathState[t.id];
+          return `${t.eq} [${s.num || "?"}] | ${s.words.join(" ") || "—"}`;
+        })
+        .join("\n");
+
+      const appleSummary = appleSequence
+        .map((r, i) => {
+          const a = appleAnswers[i];
+          const val = a === "left" ? `${r.left} (left)` : a === "right" ? `${r.right} (right)` : "—";
+          return `#${i + 1} ${r.mode}: ${val}`;
+        })
+        .join(" | ");
+
+      const vowelsList = Object.entries(letterLoc)
+        .filter(([, z]) => z === "vowels")
+        .map(([ch]) => ch)
+        .join(", ") || "—";
+
+      const consonantsList = Object.entries(letterLoc)
+        .filter(([, z]) => z === "consonants")
+        .map(([ch]) => ch)
+        .join(", ") || "—";
+
+      const sentSummary = sentStates
+        .map((st, i) => `${i + 1}) ${st.chosen.map((w) => w.text).join(" ") || "—"}`)
+        .join("\n");
+
+      const listenSummary = listeningRecords
+        .map((rec, i) => {
+          const a = listenAnswers[i];
+          return `#${i + 1} [звучало ${rec.target}]: закінчення ${a.ending || "—"}, число ${a.number ?? "—"}`;
+        })
+        .join("\n");
+
+      const text = [
+        `📘 *Math + English Practice*`,
+        `👤 *Учень:* ${name}`,
+        ``,
+        `*1. Знаки і слова:* ${signPairs}`,
+        `*2. Приклади:*`,
+        mathSummary,
+        ``,
+        `*3. Яблука:* ${appleSummary}`,
+        ``,
+        `*4. Літери:*`,
+        `Vowels: ${vowelsList}`,
+        `Consonants: ${consonantsList}`,
+        ``,
+        `*5. Речення:*`,
+        sentSummary,
+        ``,
+        `*6. -TEEN / -TY (7 записів):*`,
+        listenSummary
+      ].join("\n");
+
+      try {
+        const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text,
+            parse_mode: "Markdown"
+          })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          msgEl.style.color = "#2E9E76";
+          msgEl.textContent = "Відповіді надіслано вчителю в Telegram!";
+        } else {
+          msgEl.style.color = "#E05A6D";
+          msgEl.textContent = "Помилка: " + (data.description || "не вдалося надіслати");
+        }
+      } catch {
+        msgEl.style.color = "#E05A6D";
+        msgEl.textContent = "Помилка мережі при відправці в Telegram.";
+      }
+    });
+  </script>
+</body>
+</html>
